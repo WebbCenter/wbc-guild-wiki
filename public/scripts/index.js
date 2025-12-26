@@ -1,0 +1,90 @@
+function table(element, columns, rows) {
+    const table = document.createElement('table');
+
+    // Cabeçalho
+    const thead = document.createElement('thead');
+    let tr = document.createElement('tr');
+
+    columns.forEach((column) => {
+        let th = document.createElement('th');
+        th.textContent = column.name;
+        th.style.width = `${column.width}%`;
+        th.setAttribute('tabindex', '0');
+
+        if (column.sorting === true)
+            th.classList.add('headerSort');
+
+        tr.append(th);
+    })
+
+    thead.appendChild(tr);
+
+    // Corpo
+    const tbody = document.createElement('tbody');
+
+    rows.forEach((row) => {
+        tr = document.createElement('tr');
+        
+        row.forEach((cellContent) => {
+            let td = document.createElement('td');
+            td.innerHTML = cellContent;
+            tr.appendChild(td);
+        });
+        
+        tbody.appendChild(tr);
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    element.appendChild(table);
+
+    const headers = table.querySelectorAll('th.headerSort');
+    const originalRows = Array.from(tbody.querySelectorAll('tr'));
+    
+    headers.forEach((header) => {
+        header.addEventListener('click', () => {
+            const columnIndex = Array.from(header.parentNode.children).indexOf(header);
+            sortTable(columnIndex, header);
+        });
+        header.style.cursor = 'pointer';
+    });
+    
+    function sortTable(columnIndex, header) {
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        const currentState = header.dataset.sortState || 'none';
+        
+        headers.forEach(h => {
+            h.classList.remove('asc', 'desc');
+            if (h !== header)
+                h.dataset.sortState = 'none';
+        });
+        
+        let newState;
+        let sortedRows;
+        
+        if (currentState === 'none') {
+            newState = 'asc';
+            header.classList.add('asc');
+            sortedRows = rows.sort((a, b) => {
+                const aValue = a.cells[columnIndex].textContent.trim();
+                const bValue = b.cells[columnIndex].textContent.trim();
+                return bValue.localeCompare(aValue, 'pt-BR');
+            });
+        } else if (currentState === 'asc') {
+            newState = 'desc';
+            header.classList.add('desc');
+            sortedRows = rows.sort((a, b) => {
+                const aValue = a.cells[columnIndex].textContent.trim();
+                const bValue = b.cells[columnIndex].textContent.trim();
+                return aValue.localeCompare(bValue, 'pt-BR');
+            });
+        } else {
+            newState = 'none';
+            sortedRows = originalRows.slice();
+        }
+        
+        header.dataset.sortState = newState;
+
+        sortedRows.forEach(row => tbody.appendChild(row));
+    }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Wiki de Guildas WBC - Informações sobre guildas e jogadores">
+    <meta name="keywords" content="wbc, guild, guilda, wiki, jogos">
+    <meta name="author" content="WBC Guild Wiki">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<%= title %>">
+    <meta property="og:description" content="Wiki de Guildas WBC">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="<%= title %>">
+    <meta name="twitter:description" content="Wiki de Guildas WBC">
+
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/styles/index.css">
+</head>
+
+<body>
+    <%- include('header.ejs') %>
+        <div class="title-section">
+            <p class="title">
+                <%= title %>
+            </p>
+        </div>
+        <div class="content">
+            <div id="guilds-table"></div>
+        </div>
+</body>
+<script src="/scripts/index.js" defer></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        let columns = [
+            {
+                "name": "Estandarte",
+                "width": 10,
+            },
+            {
+                "name": "Nome",
+                "width": 20,
+                "sorting": true
+            },
+            {
+                "name": "Descrição"
+            },
+            {
+                "name": "Tag",
+                "width": 10,
+                "sorting": true
+            }
+        ]
+
+        const guilds = <%- JSON.stringify(guilds) %>;
+
+        let rows = []
+        guilds.forEach((guild) => {
+            rows.push([
+                `<img class="guild-banner" src='data:image/png;base64,${guild.bannerBase64}'>`,
+                `<a href='/guild/${guild.id}'>${guild.name}</a>`,
+                guild.description,
+                guild.tag
+            ]);
+            rows.push([
+                `<img class="guild-banner" src='data:image/png;base64,${guild.bannerBase64}'>`,
+                'Teste',
+                "arsafsdfsd",
+                "TCG"
+            ]);
+        });
+
+        const guildsTable = document.getElementById('guilds-table');
+        table(guildsTable, columns, rows);
+    });
+</script>
+
+</html>

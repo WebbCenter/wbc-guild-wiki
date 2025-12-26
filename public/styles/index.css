@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+    font-family: "PT Serif", serif;
+    background-color: rgb(47, 50, 63);
+    color: rgb(233, 233, 233);
+}
+
+table,
+th,
+td {
+    border: 1px solid gray;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+}
+
+th,
+td {
+    padding: 8px;
+}
+
+th {
+    background-color: rgb(38, 40, 50);
+}
+
+td {
+    background-color: rgb(44, 46, 55);
+}
+
+th.headerSort::after {
+    content: ' ↕';
+    opacity: 0.5;
+    font-size: 0.8em;
+}
+
+th.headerSort.desc::after {
+    content: ' ↓';
+    opacity: 1;
+}
+
+th.headerSort.asc::after {
+    content: ' ↑';
+    opacity: 1;
+}
+
+.guild-banner {
+    width: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: #7E8EF1;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.title-section {
+    position: relative;
+    width: 100%;
+    padding: 2px;
+    border-bottom: 1px solid gray;
+}
+
+.title {
+    font-size: 18pt;
+    padding: 0;
+    margin: 0;
+}
+
+.content {
+    width: 100%;
+    padding-top: 10px;
+}

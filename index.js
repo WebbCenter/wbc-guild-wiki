@@ -26,18 +26,23 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', async (req, res) => {
-
-    const guilds = await db.all('SELECT * FROM guilds')
-    console.log(guilds)
-
     res.render('index', {
-        title: 'WBC',
-        guilds
+        title: 'WBC'
     });
 });
 
 app.get('/guilds', async (req, res) => {
+    const guilds = await db.all('SELECT * FROM guilds')
 
+    await Promise.all(guilds.map(async (guild) => {
+        const banner = await renderBannerItemFromJson(guild.banner_json, 8);
+        guild.bannerBase64 = banner;
+    }));
+
+    res.render('guilds', {
+        title: 'Guildas',
+        guilds
+    });
 });
 
 app.get('/guild/:id', async (req, res) => {
@@ -46,8 +51,10 @@ app.get('/guild/:id', async (req, res) => {
     const members = await db.all('SELECT * FROM guild_members WHERE guild_id = ' + id);
     const dataURL = await renderBannerItemFromJson(guild.banner_json, 8);
 
+    console.log(guild)
+
     res.render('guild', {
-        title: 'WBC',
+        title: `${guild.name} (Guilda)`,
         guildBanner: dataURL,
         guild,
         members

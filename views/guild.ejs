@@ -2,18 +2,49 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Wiki de Guildas WBC - Informações sobre guildas e jogadores">
+    <meta name="keywords" content="wbc, guild, guilda, wiki, jogos">
+    <meta name="author" content="WBC Guild Wiki">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<%= title %>">
+    <meta property="og:description" content="Wiki de Guildas WBC">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="<%= title %>">
+    <meta name="twitter:description" content="Wiki de Guildas WBC">
+
     <title>
         <%= title %>
     </title>
+    <link rel="stylesheet" href="/styles/index.css">
 </head>
-    <img src="data:image/png;base64,<%= guildBanner %>" />
-    <h2><%= guild.name %></h2>
-    <p><%= guild.tag %></p>
-    <p><%= guild.description %></p>
-    <p><%= guild.leader_name %></p>
-    <p>Número de membros: <%= members.length %>/<%= guild.max_members %></p>
+
 <body>
-    
+    <%- include('header.ejs') %>
+        <div class="title-section">
+            <p class="title">
+                <%= guild.name %> (Guilda)
+            </p>
+        </div>
+        <div class="content">
+            <img src="data:image/png;base64,<%= guildBanner %>" />
+            <p>
+                <%= guild.tag %>
+            </p>
+            <p>
+                <%= guild.description %>
+            </p>
+            <p>
+                <%= guild.leader_name %>
+            </p>
+            <p>Número de membros: <%= members.length %>/<%= guild.max_members %>
+            </p>
+        </div>
 </body>
 
 </html>
