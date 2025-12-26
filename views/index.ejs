@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+    </head>
+    <body>
+        Lista de Guildas
+        <table>
+        <thead>
+            <tr>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Tag
+                </th>
+                <th>
+                    Descrição
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% guilds.forEach((guild) => { %>
+                <tr>
+                    <td>
+                        <a href="/guild/<%= guild.id %>"><%= guild.name %></a>
+                    </td>
+                    <td>
+                        <%= guild.tag %>
+                    </td>
+                    <td>
+                        <%= guild.description %>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    </body>
+</html>
