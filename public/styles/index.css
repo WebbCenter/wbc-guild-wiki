@@ -14,16 +14,16 @@ td {
     text-align: center;
 }
 
-.no-vertical-border th, .no-vertical-border td {
-    border: none !important;
-}
-
 .justify-table th, .justify-table td {
     text-align: justify;
 }
 
 table {
     width: 100%;
+}
+
+.table {
+    padding: 0 10px;
 }
 
 th,

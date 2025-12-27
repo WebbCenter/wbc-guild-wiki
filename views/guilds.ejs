@@ -66,13 +66,13 @@
         let rows = []
         guilds.forEach((guild) => {
             rows.push([
-                `<img width='30px' src='data:image/png;base64,${guild.bannerBase64}'>`,
+                `<img width='30px' src='<%- baseURL %>/api/guild-banner/${guild.id}'>`,
                 `<a href='/guild/${guild.id}'>${guild.name}</a>`,
                 guild.tag,
                 guild.description
             ]);
             rows.push([
-                `<img width='30px' src='data:image/png;base64,${guild.bannerBase64}'>`,
+                `<img width='30px' src='<%- baseURL %>/api/guild-banner/${guild.id}'>`,
                 'Teste',
                 "TCG",
                 "arsafsdfsd"

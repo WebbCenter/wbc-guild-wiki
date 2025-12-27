@@ -88,3 +88,57 @@ function table(element, columns, rows) {
         sortedRows.forEach(row => tbody.appendChild(row));
     }
 }
+
+function getTranslatedMemberRole(role) {
+    switch (role) {
+        case 'LEADER':
+            return 'Líder';
+        case 'OFFICER':
+            return 'Oficial';
+        default:
+            return 'Membro';
+    }
+}
+
+function getTranslatedGuildRelationStatus(status) {
+    switch (status) {
+        case 'PENDING':
+            return 'Pendente';
+        case 'ACTIVE':
+            return 'Ativa';
+        case 'EXPIRED':
+            return 'Expirada';
+        default:
+            return 'Cancelada';
+    }
+}
+
+function getTranslatedGuildRelationType(type) {
+    switch (type) {
+        case 'ALLY':
+            return 'Aliado';
+        case 'ENEMY':
+            return 'Inimigo';
+        case 'WAR':
+            return 'Guerra';
+        case 'TRUCE':
+            return 'Trégua';
+        default:
+            return 'Neutro';
+    }
+}
+
+function setPageMetaTags() {
+    let descriptionMetaTags = [
+        document.getElementById('description'),
+        document.getElementById('og:description'),
+        document.getElementById('twitter:description')
+    ];
+
+    let descriptionText = document.getElementById('main-description').textContent.trim().replace(/\s+/g, ' ');
+
+    descriptionMetaTags.forEach((metaTag) => {
+        if (metaTag)
+            metaTag.setAttribute('content', descriptionText);
+    })
+}
