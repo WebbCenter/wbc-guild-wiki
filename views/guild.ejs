@@ -32,19 +32,75 @@
             </p>
         </div>
         <div class="content">
-            <img src="data:image/png;base64,<%= guildBanner %>" />
-            <p>
-                <%= guild.tag %>
-            </p>
-            <p>
-                <%= guild.description %>
-            </p>
-            <p>
-                <%= guild.leader_name %>
-            </p>
-            <p>Número de membros: <%= members.length %>/<%= guild.max_members %>
-            </p>
+            <div class="main-content">
+                <p style="margin: 10px;">
+                    <b>"<%= guild.name %>"</b>
+                    <%= guild.frozen==0 ? 'é' : 'foi' %> uma <i>guilda</i> liderada por <b><%= guild.leader_name %></b>.
+                    Foi criada <b><%= new Date(guild.created_at).toLocaleString('pt-BR', { weekday: 'long' , year: "numeric" ,
+                                month: "long" , day: "numeric" , hour: 'numeric' , minute: 'numeric' }) %></b>.
+                    Atualmente, possui <b><%= members.length %></b> <%= members.length==1 ? 'membro' : 'membros' %> e está
+                    <b><%= guild.frozen==0 ? 'ativa' : 'suspensa' %></b><%= guild.frozen==0 ? ', apta a aceitar novos membros e participar de eventos'
+                                : ' e não pode aceitar novos membros ou participar de eventos' %>.
+                </p>
+                <p style="margin: 10px;">
+                    A descrição e lema da <i>guilda</i> é: "<i><%= guild.description %></i>".
+                </p>
+                <p class="subtitle">
+                    Membros
+                </p>
+                <p style="margin: 10px;">
+                    Os atuais membros da <i>guilda</i> são:
+                </p>
+            </div>
+            <div class="lateral-table">
+                <div class="main-container">
+                    <p class="img-subtitle">Estandarte</p>
+                    <img class="guild-banner" src="data:image/png;base64,<%= guildBanner %>" />
+                </div>
+                <table class="justify-table">
+                    <tbody>
+                        <tr>
+                            <th width="40%">Nome</th>
+                            <td>
+                                <%= guild.name %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Tag</th>
+                            <td>
+                                <%= guild.tag %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Líder</th>
+                            <td>
+                                <%= guild.leader_name %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Membros</th>
+                            <td>
+                                <%= members.length %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>
+                                <%= guild.frozen==0 ? 'Ativa' : 'Suspensa' %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Criada em</th>
+                            <td>
+                                <%= new Date(guild.created_at).toLocaleString('pt-BR', { year: "numeric" ,
+                                    month: "numeric" , day: "numeric" , hour: "numeric" , minute: "numeric" }) %>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 </body>
+<script src="/scripts/index.js" defer></script>
 
 </html>

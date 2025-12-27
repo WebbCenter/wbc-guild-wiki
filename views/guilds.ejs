@@ -21,6 +21,7 @@
     <title>
         <%= title %>
     </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="/styles/index.css">
 </head>
 
@@ -32,7 +33,9 @@
             </p>
         </div>
         <div class="content">
-            <div id="guilds-table"></div>
+            <div class="main-content">
+                <div id="guilds-table"></div>
+            </div>
         </div>
 </body>
 <script src="/scripts/index.js" defer></script>
@@ -49,12 +52,12 @@
                 "sorting": true
             },
             {
-                "name": "Descrição"
-            },
-            {
                 "name": "Tag",
                 "width": 10,
                 "sorting": true
+            },
+            {
+                "name": "Descrição"
             }
         ]
 
@@ -63,16 +66,16 @@
         let rows = []
         guilds.forEach((guild) => {
             rows.push([
-                `<img class="guild-banner" src='data:image/png;base64,${guild.bannerBase64}'>`,
+                `<img width='30px' src='data:image/png;base64,${guild.bannerBase64}'>`,
                 `<a href='/guild/${guild.id}'>${guild.name}</a>`,
-                guild.description,
-                guild.tag
+                guild.tag,
+                guild.description
             ]);
             rows.push([
-                `<img class="guild-banner" src='data:image/png;base64,${guild.bannerBase64}'>`,
+                `<img width='30px' src='data:image/png;base64,${guild.bannerBase64}'>`,
                 'Teste',
-                "arsafsdfsd",
-                "TCG"
+                "TCG",
+                "arsafsdfsd"
             ]);
         });
 

@@ -14,6 +14,14 @@ td {
     text-align: center;
 }
 
+.no-vertical-border th, .no-vertical-border td {
+    border: none !important;
+}
+
+.justify-table th, .justify-table td {
+    text-align: justify;
+}
+
 table {
     width: 100%;
 }
@@ -32,23 +40,22 @@ td {
 }
 
 th.headerSort::after {
-    content: ' ↕';
+    content: '\f0dc';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
     opacity: 0.5;
     font-size: 0.8em;
+    margin-left: 5px;
 }
 
 th.headerSort.desc::after {
-    content: ' ↓';
+    content: '\f0dd';
     opacity: 1;
 }
 
 th.headerSort.asc::after {
-    content: ' ↑';
+    content: '\f0de';
     opacity: 1;
-}
-
-.guild-banner {
-    width: 30px;
 }
 
 a {
@@ -63,7 +70,7 @@ a:hover {
 .title-section {
     position: relative;
     width: 100%;
-    padding: 2px;
+    padding: 3px;
     border-bottom: 1px solid gray;
 }
 
@@ -73,7 +80,52 @@ a:hover {
     margin: 0;
 }
 
+.subtitle {
+    font-size: 15pt;
+    padding: 3px 0;
+    margin: 0 10px;
+    border-bottom: 1px solid gray;
+}
+
 .content {
     width: 100%;
+    display: flex;
     padding-top: 10px;
+}
+
+.main-content {
+    margin: 0;
+    width: 80%;
+}
+
+.lateral-table {
+    width: 20%;
+}
+
+.main-container {
+    display: flex;
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(38, 40, 50);
+    border: 1px solid gray;
+    border-bottom: none;
+    padding: 10px;
+}
+
+.img-subtitle {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0 0 10px 0;
+    font-weight: bold;
+    border-bottom: 1px solid gray;
+}
+
+.guild-banner {
+    display: flex;
+    background-color: rgb(38, 40, 50);
+    height: 300px;
 }
