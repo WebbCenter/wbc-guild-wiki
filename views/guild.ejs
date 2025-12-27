@@ -30,104 +30,116 @@
 
 <body>
     <%- include('header.ejs') %>
-        <div class="title-section">
-            <p class="title">
-                <%= guild.name %> (Guilda)
-            </p>
-        </div>
         <div class="content">
-            <div class="main-content">
-                <p style="margin: 10px;" id="main-description">
-                    <b>"<%= guild.name %>"</b>
-                    <%= guild.frozen==0 ? 'é' : 'foi' %> uma <i>guilda</i> liderada e fundada por <b><%= guild.leader_name %></b>.
-                    Foi criada <b><%= new Date(guild.created_at).toLocaleString('pt-BR', { weekday: 'long' , year: "numeric" ,
-                                month: "long" , day: "numeric" , hour: 'numeric' , minute: 'numeric' }) %></b>.
-                    Atualmente, possui <b><%= members.length %></b> <%= members.length==1 ? 'membro' : 'membros' %> e está
-                    <b><%= guild.frozen==0 ? 'ativa' : 'suspensa' %></b><%= guild.frozen==0 ? ', apta a aceitar novos membros e participar de eventos e confrontos'
-                                : ' e não pode aceitar novos membros ou participar de eventos e confrontos' %>.
-                </p>
-                <p style="margin: 10px;">
-                    <% if (guild.description) { %>
-                        A descrição e lema da <i>guilda</i> é: "<i><%= guild.description %></i>".
-                    <% } %>
-                </p>
-                <p class="subtitle">
-                    Membros
-                </p>
-                <p style="margin: 10px;">
-                    Os membros de uma <i>guilda</i> são divididos em dois cargos:
-                    <ul style="margin: 0 10px;">
-                        <li><b>Líder:</b> Fundador da <i>guilda</i>, responsável pela gestão e decisões.</li>
-                        <li><b>Membro:</b> Demais integrantes que entraram após a criação.</li>
-                    </ul>
-                </p>
-                <p style="margin: 10px;">
-                    Os atuais membros da <i>guilda</i> são:
-                    <div id="guild-members-table" class="table"></div>
-                </p>
-                <p class="subtitle">
-                    Relações
-                </p>
-                <p style="margin: 10px;">
-                    Uma <b>relação</b> define o tipo de interação que uma <i>guilda</i> possui com outra.
-                    Os tipos de relações são: Aliado, Inimigo, Guerra, Trégua e Neutro.
-                    Cada relação pode assumir os seguintes estados: Pendente, Ativa, Expirada ou Cancelada.
-                </p>
-                <p style="margin: 10px;">
-                    <% if (relations.length> 0) { %>
-                        As relações de <b><%= guild.name %></b> com outras <i>guildas</i> são:
-                        <div id="guild-relations-table" class="table"></div>
-                    <% } else { %>
-                        Atualmente, <b><%= guild.name %></b> ainda não declarou uma relação com outra <i>guilda.</i>
-                    <% } %>
-                </p>
-            </div>
-            <div class="lateral-table">
-                <div class="main-container">
-                    <p class="img-subtitle">Estandarte</p>
-                    <img class="guild-banner" src="<%= `${baseURL}/api/guild-banner/${guild.id}` %>" />
+            <div class="lateral-menus">
+                <div id="summary" class="lateral-menu-container">
+                    <p class="lateral-menu-header">Conteúdos</p>
+                    <a class="summary-topic" href="#">(Topo)</a>
                 </div>
-                <table class="justify-table">
-                    <tbody>
-                        <tr>
-                            <th width="40%">Nome</th>
-                            <td>
-                                <%= guild.name %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Tag</th>
-                            <td>
-                                <%= guild.tag ?? '-' %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Líder/Fundador</th>
-                            <td>
-                                <%= guild.leader_name %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Membros</th>
-                            <td>
-                                <%= members.length %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>
-                            <td>
-                                <%= guild.frozen==0 ? 'Ativa' : 'Suspensa' %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Criada em</th>
-                            <td>
-                                <%= new Date(guild.created_at).toLocaleString('pt-BR', { year: "numeric" ,
-                                    month: "numeric" , day: "numeric" , hour: "numeric" , minute: "numeric" }) %>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            </div>
+            <div class="main-content">
+                <p class="title">
+                    <%= guild.name %> (Guilda)
+                </p>
+                <div class="containers">
+                    <div class="main-text">
+                        <p style="margin: 10px;" id="main-description">
+                            <b>"<%= guild.name %>"</b>
+                            <%= guild.frozen==0 ? 'é' : 'foi' %> uma <i>guilda</i> liderada e fundada por <b><%= guild.leader_name %></b>.
+                            Foi criada <b><%= new Date(guild.created_at).toLocaleString('pt-BR', { weekday: 'long' , year: "numeric" ,
+                                        month: "long" , day: "numeric" , hour: 'numeric' , minute: 'numeric' }) %></b>.
+                            Atualmente, possui <b><%= members.length %></b> <%= members.length==1 ? 'membro' : 'membros' %> e está
+                            <b><%= guild.frozen==0 ? 'ativa' : 'suspensa' %></b><%= guild.frozen==0 ? ', apta a aceitar novos membros e participar de eventos e confrontos'
+                                        : ' e não pode aceitar novos membros ou participar de eventos e confrontos' %>.
+                        </p>
+                        <p style="margin: 10px;">
+                            <% if (guild.description) { %>
+                                A descrição e lema da <i>guilda</i> é: "<i><%= guild.description %></i>".
+                            <% } %>
+                        </p>
+                        <section id="membros">
+                            <p class="subtitle">
+                                Membros
+                            </p>
+                            <p style="margin: 10px;">
+                                Os membros de uma <i>guilda</i> são divididos em dois cargos:
+                                <ul style="margin: 0 10px;">
+                                    <li><b>Líder:</b> Fundador da <i>guilda</i>, responsável pela gestão e decisões.</li>
+                                    <li><b>Membro:</b> Demais integrantes que entraram após a criação.</li>
+                                </ul>
+                            </p>
+                            <p style="margin: 10px;">
+                                Os atuais membros da <i>guilda</i> são:
+                                <div id="guild-members-table" class="table"></div>
+                            </p>
+                        </section>
+                        <section id="relações">
+                            <p class="subtitle">
+                                Relações
+                            </p>
+                            <p style="margin: 10px;">
+                                Uma <b>relação</b> define o tipo de interação que uma <i>guilda</i> possui com outra.
+                                Os tipos de relações são: Aliado, Inimigo, Guerra, Trégua e Neutro.
+                                Cada relação pode assumir os seguintes estados: Pendente, Ativa, Expirada ou Cancelada.
+                            </p>
+                            <p style="margin: 10px;">
+                                <% if (relations.length> 0) { %>
+                                    As relações de <b><%= guild.name %></b> com outras <i>guildas</i> são:
+                                    <div id="guild-relations-table" class="table"></div>
+                                <% } else { %>
+                                    Atualmente, <b><%= guild.name %></b> ainda não declarou uma relação com outra <i>guilda.</i>
+                                <% } %>
+                            </p>
+                        </section>
+                    </div>
+                    <div class="lateral-table">
+                        <div class="main-container">
+                            <p class="img-subtitle">Estandarte</p>
+                            <img class="guild-banner" src="<%= `${baseURL}/api/guild-banner/${guild.id}` %>" />
+                        </div>
+                        <table class="justify-table">
+                            <tbody>
+                                <tr>
+                                    <th width="40%">Nome</th>
+                                    <td>
+                                        <%= guild.name %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Tag</th>
+                                    <td>
+                                        <%= guild.tag ?? '-' %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Líder/Fundador</th>
+                                    <td>
+                                        <%= guild.leader_name %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Membros</th>
+                                    <td>
+                                        <%= members.length %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>
+                                        <%= guild.frozen==0 ? 'Ativa' : 'Suspensa' %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Criada em</th>
+                                    <td>
+                                        <%= new Date(guild.created_at).toLocaleString('pt-BR', { year: "numeric" ,
+                                            month: "numeric" , day: "numeric" , hour: "numeric" , minute: "numeric" }) %>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 </body>
@@ -135,6 +147,7 @@
 <script>
     window.addEventListener('DOMContentLoaded', function () {
         setPageMetaTags();
+        setSummary();
 
         let columns = [
             {

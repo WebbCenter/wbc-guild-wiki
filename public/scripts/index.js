@@ -142,3 +142,17 @@ function setPageMetaTags() {
             metaTag.setAttribute('content', descriptionText);
     })
 }
+
+function setSummary() {
+    let summary = document.getElementById('summary');
+    let subtitles = Array.from(document.getElementsByClassName('subtitle'));
+
+    subtitles.forEach((subtitle) => {
+        let a = document.createElement('a');
+        a.classList.add('summary-topic');
+        a.textContent = subtitle.textContent;
+        a.href = `#${a.textContent.trim().replace(/\s+/g, ' ').toLocaleLowerCase()}`
+
+        summary.appendChild(a);
+    })
+}
