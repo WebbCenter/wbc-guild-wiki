@@ -83,11 +83,19 @@ a:hover {
     border-bottom: 1px solid gray;
 }
 
-.subtitle {
+.topic {
     font-size: 15pt;
     padding: 3px 0;
     margin: 0 10px;
     border-bottom: 1px solid gray;
+}
+
+.subtopic {
+    font-size: 13pt;
+    font-weight: bold;
+    padding: 5px 0;
+    margin: 0 10px;
+    /* border-bottom: 1px solid gray; */
 }
 
 .content {
@@ -197,7 +205,14 @@ section {
     margin: 0;
 }
 
-.summary-topic:hover {
+.summary-subtopic {
+    color: gray;
+    font-size: 10pt;
+    padding: 5px 0 0 15px;
+    margin: 0;
+}
+
+.summary-topic:hover, .summary-subtopic:hover {
     cursor: pointer;
     color: rgb(233, 233, 233);
     text-decoration: underline;

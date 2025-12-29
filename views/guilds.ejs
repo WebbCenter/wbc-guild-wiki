@@ -21,26 +21,96 @@
     <title>
         <%= title %>
     </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="/styles/index.css">
 </head>
 
 <body>
     <%- include('header.ejs') %>
-        <div class="title-section">
-            <p class="title">
-                <%= title %>
-            </p>
-        </div>
         <div class="content">
+            <div class="lateral-menus">
+                <div id="summary" class="lateral-menu-container">
+                    <p class="lateral-menu-header">Conteúdos</p>
+                    <a class="summary-topic" href="#">(Topo)</a>
+                </div>
+            </div>
             <div class="main-content">
-                <div id="guilds-table"></div>
+                <p class="title">
+                    <%= title %>
+                </p>
+                <div class="containers">
+                    <div class="main-text">
+                        <p style="margin: 10px;" id="main-description">
+                            Uma <b>guilda</b> (ou clã) é uma organização formada por jogadores que compartilham objetivos comuns. 
+                            Cada guilda pode ter até <b><%= maxMembers %> membros</b> e possui uma estrutura hierárquica com dois cargos: 
+                            <b>Líder</b> e <b>Membro</b>.
+                        </p>
+                        <section id="fundação">
+                            <p class="topic">
+                                Fundação
+                            </p>
+                            <p style="margin: 10px;">
+                                Para fundar uma <i>guilda</i>, o jogador precisa definir inicialmente duas informações obrigatórias:
+                                <ul>
+                                    <li><b>Nome:</b> A identidade oficial da guilda, como será reconhecida por todos.</li>
+                                    <li><b>Tag:</b> Uma sigla de identificação rápida (geralmente 3-5 caracteres).</li>
+                                </ul>
+                            </p>
+                            <p style="margin: 10px;">
+                                Após a criação, o líder pode personalizar a guilda com:
+                                <ul>
+                                    <li>
+                                        <b>Descrição:</b> O propósito, lema ou missão da organização (também pode ser informada
+                                        no momento da criação).
+                                    </li>
+                                    <li>
+                                        <b>Estandarte:</b> A bandeira que representa visualmente a guilda e seus ideais
+                                        (veja como criar em: <a href="#estandarte">Estandarte</a>).
+                                    </li>
+                                </ul>
+                            </p>
+                        </section>
+                        <section id="lista de guildas">
+                            <p class="topic">
+                                Guildas
+                            </p>
+                            <p style="margin: 10px;">
+                               As <i>guildas</i> existentes são:
+                            </p>
+                            <div id="guilds-table" class="table"></div>
+                        </section>
+                    </div>
+                    <div class="lateral-table">
+                        <div class="main-container">
+                            <p class="img-subtitle">Exemplo de estandarte</p>
+                            <img class="guild-banner" src="/images/guild-banner.png" />
+                        </div>
+                        <table class="justify-table">
+                            <tbody>
+                                <tr>
+                                    <th>Cargos</th>
+                                    <td>
+                                        Líder, Membro
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Nº máx. de membros</th>
+                                    <td>
+                                        <%= maxMembers %>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 </body>
 <script src="/scripts/index.js" defer></script>
 <script>
     window.addEventListener('DOMContentLoaded', function () {
+        setSummary();
         let columns = [
             {
                 "name": "Estandarte",

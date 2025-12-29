@@ -145,12 +145,17 @@ function setPageMetaTags() {
 
 function setSummary() {
     let summary = document.getElementById('summary');
-    let subtitles = Array.from(document.getElementsByClassName('subtitle'));
+    let contents = document.querySelectorAll('.topic, .subtopic');
 
-    subtitles.forEach((subtitle) => {
+    contents.forEach((content) => {
         let a = document.createElement('a');
-        a.classList.add('summary-topic');
-        a.textContent = subtitle.textContent;
+
+        if (content.classList.contains('topic'))
+            a.classList.add('summary-topic');
+        else
+            a.classList.add('summary-subtopic');
+
+        a.textContent = content.textContent;
         a.href = `#${a.textContent.trim().replace(/\s+/g, ' ').toLocaleLowerCase()}`
 
         summary.appendChild(a);

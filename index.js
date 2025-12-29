@@ -35,11 +35,10 @@ app.get('/guilds', async (req, res) => {
     const guilds = await db.all('SELECT * FROM guilds');
     const baseURL = `${req.protocol}://${req.get('host')}`;
 
-    console.log(baseURL)
-
     res.render('guilds', {
-        title: 'Guildas',
+        title: 'Guilda',
         guilds,
+        maxMembers: 6,
         baseURL
     });
 });
