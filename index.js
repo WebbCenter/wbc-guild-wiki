@@ -7,7 +7,6 @@ const { renderBannerItem, renderBannerItemFromJson } = require('mc-banner-render
 let db;
 let dbPromise;
 
-// Inicializa o banco de dados
 dbPromise = (async () => {
     try {
         const dbPath = process.env.VERCEL 
@@ -21,6 +20,9 @@ dbPromise = (async () => {
             driver: sqlite3.Database,
             mode: sqlite3.OPEN_READONLY
         });
+        
+        await db.exec('PRAGMA query_only = ON;');
+        await db.exec('PRAGMA journal_mode = OFF;');
 
         console.log('Database connected successfully!');
         return db;
@@ -33,7 +35,6 @@ dbPromise = (async () => {
 const app = express();
 const port = 3000;
 
-// Middleware para garantir que o DB está conectado
 app.use(async (req, res, next) => {
     if (!db) {
         try {
@@ -53,24 +54,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.get('/', async (req, res) => {
     res.render('index', {
         title: 'WBC'
-    });
-});
-
-// Endpoint de debug para verificar arquivos
-app.get('/debug', (req, res) => {
-    const fs = require('fs');
-    const dbPath = process.env.VERCEL 
-        ? path.join(process.cwd(), 'guild.db')
-        : path.join(__dirname, 'guild.db');
-    
-    res.json({
-        env: process.env.VERCEL ? 'Vercel' : 'Local',
-        cwd: process.cwd(),
-        __dirname: __dirname,
-        dbPath: dbPath,
-        dbExists: fs.existsSync(dbPath),
-        cwdFiles: fs.readdirSync(process.cwd()).slice(0, 20),
-        dbStatus: db ? 'Connected' : 'Not connected'
     });
 });
 
