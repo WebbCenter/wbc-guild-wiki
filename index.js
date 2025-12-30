@@ -7,12 +7,23 @@ const { renderBannerItem, renderBannerItemFromJson } = require('mc-banner-render
 let db;
 
 (async () => {
-    db = await open({
-        filename: path.join(__dirname, 'guild.db'),
-        driver: sqlite3.Database
-    });
+    try {
+        const dbPath = process.env.VERCEL 
+            ? path.join(process.cwd(), 'guild.db')
+            : path.join(__dirname, 'guild.db');
+        
+        console.log('Trying to connect to database at:', dbPath);
+        
+        db = await open({
+            filename: dbPath,
+            driver: sqlite3.Database,
+            mode: sqlite3.OPEN_READONLY
+        });
 
-    console.log('Database connected successfully!');
+        console.log('Database connected successfully!');
+    } catch (error) {
+        console.error('Database connection failed:', error);
+    }
 })();
 
 const app = express();
