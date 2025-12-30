@@ -56,6 +56,24 @@ app.get('/', async (req, res) => {
     });
 });
 
+// Endpoint de debug para verificar arquivos
+app.get('/debug', (req, res) => {
+    const fs = require('fs');
+    const dbPath = process.env.VERCEL 
+        ? path.join(process.cwd(), 'guild.db')
+        : path.join(__dirname, 'guild.db');
+    
+    res.json({
+        env: process.env.VERCEL ? 'Vercel' : 'Local',
+        cwd: process.cwd(),
+        __dirname: __dirname,
+        dbPath: dbPath,
+        dbExists: fs.existsSync(dbPath),
+        cwdFiles: fs.readdirSync(process.cwd()).slice(0, 20),
+        dbStatus: db ? 'Connected' : 'Not connected'
+    });
+});
+
 app.get('/guilds', async (req, res) => {
     try {
         const guilds = await db.all('SELECT * FROM guilds');
