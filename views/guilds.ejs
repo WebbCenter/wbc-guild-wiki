@@ -5,19 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta id='description' name="description" content="">
+    <%
+        let description = `Uma guilda (ou clã) é uma organização formada por jogadores que compartilham objetivos comuns. Cada guilda pode ter até ${maxMembers} membros e possui uma estrutura hierárquica com dois cargos: Líder e Membro.`;
+    %>
+    <meta name="description" content="<%= description %>">
     <meta name="keywords" content="wbc, guild, guilda, wiki, jogos">
     <meta name="author" content="WBC Guild Wiki">
     <meta name="robots" content="index, follow">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="<%= title %>">
-    <meta id='og:description' property="og:description" content="">
+    <meta property="og:description" content="<%= description %>">
     <meta property="og:image" content="<%= `${baseURL}/images/guild-banner.png` %>">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<%= title %>">
-    <meta id='twitter:description' name="twitter:description" content="">
+    <meta name="twitter:description" content="<%= description %>">
     <meta name="twitter:image" content="<%= `${baseURL}/images/guild-banner.png` %>">
 
     <title>
@@ -181,7 +184,6 @@
 <script src="/scripts/index.js" defer></script>
 <script>
     window.addEventListener('DOMContentLoaded', function () {
-        setPageMetaTags();
         setSummary();
         let columns = [
             {

@@ -5,19 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta id='description' name="description" content="">
-    <meta name="keywords" content="wbc, guild, guilda, wiki, jogos">
+    <%
+        let description = `"${guild.name}" ${guild.frozen == 0 ? 'é' : 'foi'} uma guilda liderada e fundada por ${guild.leader_name}. Foi criada ${new Date(guild.created_at).toLocaleString('pt-BR', { weekday: 'long', year: "numeric", month: "long", day: "numeric", hour: 'numeric', minute: 'numeric' })}. Atualmente, possui ${members.length} ${members.length == 1 ? 'membro' : 'membros'} e está ${guild.frozen == 0 ? 'ativa' : 'suspensa'}${guild.frozen == 0 ? ', apta a aceitar novos membros e participar de eventos e confrontos' : ' e não pode aceitar novos membros ou participar de eventos e confrontos'}.`;
+    %>
+    <meta name="description" content="<%= description %>">
+    <meta name="keywords" content="wbc, guild, guilda, wiki, jogos, <%= guild.name %>">
     <meta name="author" content="WBC Guild Wiki">
     <meta name="robots" content="index, follow">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="<%= title %>">
-    <meta id='og:description' property="og:description" content="">
+    <meta property="og:description" content="<%= description %>">
     <meta property="og:image" content="<%= `${baseURL}/api/guild-banner/${guild.id}` %>">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<%= title %>">
-    <meta id='twitter:description' name="twitter:description" content="">
+    <meta name="twitter:description" content="<%= description %>">
     <meta name="twitter:image" content="<%= `${baseURL}/api/guild-banner/${guild.id}` %>">
 
     <title>
@@ -146,7 +149,6 @@
 <script src="/scripts/index.js" defer></script>
 <script>
     window.addEventListener('DOMContentLoaded', function () {
-        setPageMetaTags();
         setSummary();
 
         let columns = [

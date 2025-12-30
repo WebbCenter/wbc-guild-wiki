@@ -128,21 +128,6 @@ function getTranslatedGuildRelationType(type) {
     }
 }
 
-function setPageMetaTags() {
-    let descriptionMetaTags = [
-        document.getElementById('description'),
-        document.getElementById('og:description'),
-        document.getElementById('twitter:description')
-    ];
-
-    let descriptionText = document.getElementById('main-description').textContent.trim().replace(/\s+/g, ' ');
-
-    descriptionMetaTags.forEach((metaTag) => {
-        if (metaTag)
-            metaTag.setAttribute('content', descriptionText);
-    })
-}
-
 function setSummary() {
     let summary = document.getElementById('summary');
     let contents = document.querySelectorAll('.topic, .subtopic');
