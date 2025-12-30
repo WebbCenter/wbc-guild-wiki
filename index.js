@@ -1,15 +1,16 @@
 const express = require('express');
 const path = require('path');
-const sqlite3 = require('sqlite3');
-const { open } = require('sqlite');
+const { createClient } = require('@libsql/client');
 const { renderBannerItem, renderBannerItemFromJson } = require('mc-banner-renderer');
+const dotenv = require('dotenv');
+dotenv.config()
 
 let db;
 
 (async () => {
-    db = await open({
-        filename: path.join(__dirname, 'guild.db'),
-        driver: sqlite3.Database
+    db = createClient({
+        url: process.env.TURSO_DATABASE_URL,
+        authToken: process.env.TURSO_AUTH_TOKEN
     });
 
     console.log('Database connected successfully!');
@@ -32,7 +33,8 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/guilds', async (req, res) => {
-    const guilds = await db.all('SELECT * FROM guilds');
+    const result = await db.execute('SELECT * FROM guilds');
+    const guilds = result.rows;
     const baseURL = `${req.protocol}://${req.get('host')}`;
 
     res.render('guilds', {
@@ -45,12 +47,21 @@ app.get('/guilds', async (req, res) => {
 
 app.get('/guild/:id', async (req, res) => {
     const { id } = req.params;
-    const guild = await db.get('SELECT * FROM guilds WHERE id = ' + id);
-    const members = await db.all('SELECT * FROM guild_members WHERE guild_id = ' + id);
-    const relations = await db.all(
-        'SELECT * FROM guild_relations WHERE guild1_id = ? OR guild2_id = ?',
-        id, id
-    );
+    const guildResult = await db.execute({
+        sql: 'SELECT * FROM guilds WHERE id = ?',
+        args: [id]
+    });
+    const guild = guildResult.rows[0];
+    const membersResult = await db.execute({
+        sql: 'SELECT * FROM guild_members WHERE guild_id = ?',
+        args: [id]
+    });
+    const members = membersResult.rows;
+    const relationsResult = await db.execute({
+        sql: 'SELECT * FROM guild_relations WHERE guild1_id = ? OR guild2_id = ?',
+        args: [id, id]
+    });
+    const relations = relationsResult.rows;
 
     console.log(relations)
     const baseURL = `${req.protocol}://${req.get('host')}`;
@@ -66,7 +77,11 @@ app.get('/guild/:id', async (req, res) => {
 
 app.get('/api/guild-banner/:id', async (req, res) => {
     const guildId = req.params.id;
-    const guild = await db.get('SELECT * FROM guilds WHERE id = ' + guildId);
+    const guildResult = await db.execute({
+        sql: 'SELECT * FROM guilds WHERE id = ?',
+        args: [guildId]
+    });
+    const guild = guildResult.rows[0];
     const dataURL = await renderBannerItemFromJson(guild.banner_json, 8);
     const buffer = Buffer.from(dataURL, 'base64');
     res.set('Content-Type', 'image/png');
