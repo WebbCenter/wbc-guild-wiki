@@ -93,9 +93,8 @@ a:hover {
 .subtopic {
     font-size: 13pt;
     font-weight: bold;
-    padding: 5px 0;
+    padding: 0;
     margin: 0 10px;
-    /* border-bottom: 1px solid gray; */
 }
 
 .content {
@@ -216,4 +215,37 @@ section {
     cursor: pointer;
     color: rgb(233, 233, 233);
     text-decoration: underline;
+}
+
+code {
+    font-size: 12pt;
+}
+
+.image-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: fit-content;
+    flex-shrink: 0;
+    padding: 3px;
+    margin: 0 10px;
+    border: 1px solid gray;
+    text-align: center;
+    background-color: rgb(38, 40, 50);
+}
+
+.image-content {
+    padding: 0;
+    margin: 0;
+    width: 300px;
+    border: 1px solid rgb(81, 81, 81);
+}
+
+.image-transcription {
+    font-size: 10pt;
+    text-align: justify;
+    width: 100%;
+    margin: 0;
+    padding: 2px 2px;
 }

@@ -5,18 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Wiki de Guildas WBC - Informações sobre guildas e jogadores">
+    <meta id='description' name="description" content="">
     <meta name="keywords" content="wbc, guild, guilda, wiki, jogos">
     <meta name="author" content="WBC Guild Wiki">
     <meta name="robots" content="index, follow">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="<%= title %>">
-    <meta property="og:description" content="Wiki de Guildas WBC">
+    <meta id='og:description' property="og:description" content="">
+    <meta property="og:image" content="<%= `${baseURL}/images/guild-banner.png` %>">
 
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<%= title %>">
-    <meta name="twitter:description" content="Wiki de Guildas WBC">
+    <meta id='twitter:description' name="twitter:description" content="">
+    <meta name="twitter:image" content="<%= `${baseURL}/images/guild-banner.png` %>">
 
     <title>
         <%= title %>
@@ -53,20 +55,25 @@
                             <p style="margin: 10px;">
                                 Para fundar uma <i>guilda</i>, o jogador precisa definir inicialmente duas informações obrigatórias:
                                 <ul>
-                                    <li><b>Nome:</b> A identidade oficial da guilda, como será reconhecida por todos.</li>
-                                    <li><b>Tag:</b> Uma sigla de identificação rápida (geralmente 3-5 caracteres).</li>
+                                    <li>
+                                        <b>Nome:</b> A identidade oficial da guilda, como será reconhecida por todos (veja como definir
+                                        em: <a href="#guias#nome">Nome</a>).
+                                    </li>
+                                    <li>
+                                        <b>Tag:</b> Uma sigla de identificação rápida (veja como definir em: <a href="#guias#tag">Tag</a>).
+                                    </li>
                                 </ul>
                             </p>
                             <p style="margin: 10px;">
                                 Após a criação, o líder pode personalizar a guilda com:
                                 <ul>
                                     <li>
-                                        <b>Descrição:</b> O propósito, lema ou missão da organização (também pode ser informada
-                                        no momento da criação).
+                                        <b>Descrição:</b> O propósito, lema ou missão da organização (veja como definir
+                                        em: <a href="#guias#descrição">Descrição</a>).
                                     </li>
                                     <li>
                                         <b>Estandarte:</b> A bandeira que representa visualmente a guilda e seus ideais
-                                        (veja como criar em: <a href="#estandarte">Estandarte</a>).
+                                        (veja como definir em: <a href="#guias#estandarte">Estandarte</a>).
                                     </li>
                                 </ul>
                             </p>
@@ -77,8 +84,72 @@
                             </p>
                             <p style="margin: 10px;">
                                As <i>guildas</i> existentes são:
+                               <div id="guilds-table" class="table"></div>
                             </p>
-                            <div id="guilds-table" class="table"></div>
+                        </section>
+                        <section id="guias">
+                            <p class="topic">
+                                Guias
+                            </p>
+                            <p style="margin: 10px;">
+                                Todas as configurações relacionadas a <i>guildas</i> podem ser acessadas dentro do jogo usando o comando
+                                <code>
+                                    /guilda
+                                </code>
+                                no <i>chat</i>.
+                                Após utilizar o comando, clique em "Criar Guilda" (bloco de esmeralda).
+                                <div class="image-container">
+                                    <img class="image-content" src="/images/guias-1-criar-guilda.png">
+                                    <p class="image-transcription">Criando uma nova <i>guilda</i> através da interface.</p>
+                                </div>
+                            </p>
+                            <p id="guias#nome" class="subtopic">
+                                Nome
+                            </p>
+                            <p style="margin: 10px;">
+                                Clique em "Nome da Guilda" (etiqueta). Após isso, abra o <i>chat</i> e envie o nome desejado para sua
+                                <i>guilda</i>.
+                                <div class="image-container">
+                                    <img class="image-content" src="/images/guias-2-1-nome.png">
+                                    <p class="image-transcription">Definindo um nome para a <i>guilda</i> através da<br>interface.</p>
+                                </div>
+                            </p>
+                            <p id="guias#tag" class="subtopic">
+                                Tag
+                            </p>
+                            <p style="margin: 10px;">
+                                Clique em "Tag da Guilda" (placa). Após isso, abra o <i>chat</i> e envie a tag para identificação
+                                da sua <i>guilda</i>.
+                                <div class="image-container">
+                                    <img class="image-content" src="/images/guias-3-1-tag.png">
+                                    <p class="image-transcription">Definindo uma tag para a <i>guilda</i> através da<br>interface.</p>
+                                </div>
+                            </p>
+                            <p id="guias#descrição" class="subtopic">
+                                Descrição
+                            </p>
+                            <p style="margin: 10px;">
+                                Clique em "Descrição da Guilda" (livro). Após isso, abra o <i>chat</i> e envie a descrição (lema)
+                                da sua <i>guilda</i>.
+                                <div class="image-container">
+                                    <img class="image-content" src="/images/guias-4-1-descrição.png">
+                                    <p class="image-transcription">Definindo uma descrição para a <i>guilda</i> através da<br>interface.</p>
+                                </div>
+                            </p>
+                            <p id="guias#estandarte" class="subtopic">
+                                Estandarte
+                            </p>
+                            <p style="margin: 10px;">
+                                Após criar sua <i>guilda</i>, para definir seu estandarte, você precisará obtê-lo no jogo usando um
+                                <a href="https://pt.minecraft.wiki/w/Tear" target="_blank">tear</a>. Depois que você obter o item,
+                                segure-o em sua mão, use o comando mencionado acima, vá em <b>Configurações da <i>Guilda</i></b> e clique
+                                em "Alterar Estandarte" (estandarte branco). Após isso, aparecerá uma tela de confirmação. Clique em
+                                "Confirmar" (lã verde).
+                                <div class="image-container">
+                                    <img class="image-content" src="/images/guias-5-estandarte.gif">
+                                    <p class="image-transcription">Definindo um estandarte para a <i>guilda</i> através da<br>interface.</p>
+                                </div>
+                            </p>
                         </section>
                     </div>
                     <div class="lateral-table">
@@ -110,6 +181,7 @@
 <script src="/scripts/index.js" defer></script>
 <script>
     window.addEventListener('DOMContentLoaded', function () {
+        setPageMetaTags();
         setSummary();
         let columns = [
             {
