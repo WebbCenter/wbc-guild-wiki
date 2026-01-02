@@ -40,6 +40,20 @@ td {
     background-color: rgb(44, 46, 55);
 }
 
+#header {
+    /* height: 50px; */
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
 th.headerSort::after {
     content: '\f0dc';
     font-family: 'Font Awesome 6 Free';

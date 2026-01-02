@@ -62,8 +62,7 @@ app.get('/guild/:id', async (req, res) => {
         args: [id, id]
     });
     const relations = relationsResult.rows;
-
-    console.log(relations)
+    
     const baseURL = `${req.protocol}://${req.get('host')}`;
 
     res.render('guild', {
