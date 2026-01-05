@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const { initDatabase } = require('./src/config/database');
 const GuildService = require('./src/services/GuildService');
-const { renderBannerItem, renderBannerItemFromJson } = require('mc-banner-renderer');
+const { renderBannerItemFromJson } = require('mc-banner-renderer');
 const dotenv = require('dotenv');
 dotenv.config()
 
@@ -51,12 +51,14 @@ app.get('/api/guild-banner/:id', async (req, res) => {
     const guild = await GuildService.getById(guildId);
     const dataURL = await renderBannerItemFromJson(guild.banner_json, 8);
     const buffer = Buffer.from(dataURL, 'base64');
+
     res.set('Content-Type', 'image/png');
     res.send(buffer);
 });
 
 (async () => {
     await initDatabase();
+    
     app.listen(port, () => {
         console.log(`Server is running on port http://localhost:${port}/`);
     });
