@@ -11,6 +11,10 @@ class GuildService {
         return await GuildRepository.findById(id);
     }
 
+    async getByName(name) {
+        return await GuildRepository.findByName(name);
+    }
+
     async getGuildDetails(id) {
         const guild = await GuildRepository.findById(id);
         const members = await GuildMemberRepository.findByGuildId(id);

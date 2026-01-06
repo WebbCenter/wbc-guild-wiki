@@ -17,6 +17,16 @@ class GuildRepository {
 
         return result.rows[0];
     }
+
+    async findByName(name) {
+        const db = getDatabase();
+        const result = await db.execute({
+            sql: "SELECT * FROM guilds WHERE name LIKE ? LIMIT 3",
+            args: ['%' + name + '%']
+        });
+
+        return result.rows;
+    }
 }
 
 module.exports = new GuildRepository();

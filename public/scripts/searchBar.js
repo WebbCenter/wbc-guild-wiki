@@ -19,20 +19,31 @@ const pages = [
 const searchBar = document.getElementById('search-bar');
 const queryResults = document.getElementById('query-results')
 
-searchBar.addEventListener('input', (event) => {
+let debounceTimer;
+
+searchBar.addEventListener('keyup', async (event) => {
+    clearTimeout(debounceTimer);
+
     const query = event.target.value.toLowerCase();
     if (query.length < 3) {
         queryResults.style.display = 'none';
         return;
     }
-    else {
+
+    debounceTimer = setTimeout(async () => {
         queryResults.innerHTML = "";
+        let results = null;
+
         const normalizeString = (str) => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         const normalizedQuery = normalizeString(query);
-        let results = Array.from(pages.filter(page => 
-            normalizeString(page.name.toLowerCase()).startsWith(normalizedQuery) || 
+        results = Array.from(pages.filter(page =>
+            normalizeString(page.name.toLowerCase()).startsWith(normalizedQuery) ||
             page.aliases.some(alias => normalizeString(alias).startsWith(normalizedQuery))
         ));
+
+        const response = await fetch('/api/search?q=' + encodeURIComponent(query));
+        const data = await response.json();
+        results = results.concat(data);
 
         if (results.length > 0) {
             results.forEach((result) => {
@@ -56,7 +67,7 @@ searchBar.addEventListener('input', (event) => {
 
                 let text = document.createTextNode(result.name);
                 a.appendChild(text);
-    
+
                 queryResults.appendChild(a)
             })
 
@@ -64,11 +75,11 @@ searchBar.addEventListener('input', (event) => {
         }
         else
             queryResults.style.display = 'none';
-    }   
+    }, 250);
 });
 
 searchBar.addEventListener('blur', () => {
     setTimeout(() => {
         queryResults.style.display = 'none';
-    }, 200);
+    }, 100);
 });
